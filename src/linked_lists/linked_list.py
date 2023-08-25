@@ -26,11 +26,9 @@ class LinkedList:
 
     def _insert_first_node(self, node):
         self._last = self._first = node
-        # self._iter_index = -1
 
         previous_node = Node(None)
         previous_node.set_next(self._first)
-        # self._iter_current_item = previous_node
 
     def _only_one_node_remains(self):
         return self._len == 1
