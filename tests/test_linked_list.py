@@ -47,8 +47,9 @@ class TestLinkedList:
     def ll(self):
         return LinkedList()
 
-    def test_create_instance(self, ll):
-        assert ll
+    def test_is_empty(self, ll):
+        assert not ll
+        assert ll._empty() is True
 
     def test_null_linked_list_has_none_as_first_and_last_nodes(self, ll):
         assert ll.first is None
@@ -112,3 +113,34 @@ class TestLinkedList:
         assert ll.first.next == Node(1)
         assert ll.first.next.next == Node(2)
         assert ll.last.next is None
+        return ll
+
+    @pytest.fixture(name="full_ll")
+    def create_linked_list_with_lots_of_data(self, ll) -> LinkedList:
+        for i in range(20, 40):
+            ll.add_last(Node(i))
+        for i in reversed(range(20)):
+            ll.add_first(Node(i))
+        return ll
+
+    def test_add_to_first_and_last_multiple(self, full_ll):
+        next_one = full_ll.first
+        for i in range(40):
+            assert next_one == Node(i)
+            next_one = next_one.next
+
+    def test_len(self, full_ll):
+        assert len(full_ll) == 40
+
+    def test_remove_last(self, full_ll):
+        full_ll.remove_last()
+        assert len(full_ll) == 39
+        assert full_ll.last == Node(38)
+        assert full_ll.last.next is None
+        assert full_ll.first == Node(0)
+
+        full_ll.remove_last()
+        assert len(full_ll) == 38
+        assert full_ll.last == Node(37)
+        assert full_ll.last.next is None
+        assert full_ll.first == Node(0)
