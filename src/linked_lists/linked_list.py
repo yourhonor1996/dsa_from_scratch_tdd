@@ -7,8 +7,8 @@ class LinkedList:
         self._last: Node = None
         self._len = 0
 
-        self._iter_index = None
-        self._iter_current: Node = None
+        self._iter_index = 0
+        self._iter_current_item: Node = None
 
     def __bool__(self):
         return not self.is_empty()
@@ -26,8 +26,11 @@ class LinkedList:
 
     def _insert_first_node(self, node):
         self._last = self._first = node
-        self._iter_index = 0
-        self._iter_current = self._first
+        # self._iter_index = -1
+
+        previous_node = Node(None)
+        previous_node.set_next(self._first)
+        # self._iter_current_item = previous_node
 
     def _only_one_node_remains(self):
         return self._len == 1
@@ -35,6 +38,8 @@ class LinkedList:
     def _make_empty(self):
         self._len = 0
         self._first = self._last = None
+        self._iter_index = None
+        self._iter_current_item = None
 
     def is_empty(self):
         return self._first is None and self._last is None
@@ -83,11 +88,39 @@ class LinkedList:
 
         return temp_last
 
-    # def __next__(self):
-    #     self._it
+    def __iter__(self):
+        return self
 
-    # def contains(self, param):
-    #     value = param
-    #     if isinstance(param, Node):
-    #         value = param.value
-    #     for i in range(self._len):
+    def __next__(self):
+        if self._iter_index == 0:
+            self._iter_index += 1
+            self._iter_current_item = self.first
+            return self._iter_current_item
+
+        self._iter_index += 1
+        self._iter_current_item = self._iter_current_item.next
+        if self._iter_current_item is None:
+            self._iter_index = 0
+            raise StopIteration
+        return self._iter_current_item
+
+    def index_of(self, node):
+        if not isinstance(node, Node):
+            node = Node(node)
+        current = self.first
+        for i in range(self._len):
+            if current == node:
+                return i
+            current = current.next
+        return -1
+
+    def contains(self, node):
+        if not isinstance(node, Node):
+            node = Node(node)
+
+        current = self.first
+        for i in range(self._len):
+            if current == node:
+                return True
+            current = current.next
+        return False

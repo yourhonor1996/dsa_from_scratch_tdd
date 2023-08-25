@@ -181,13 +181,40 @@ class TestLinkedList:
         assert full_ll.first is None and full_ll.last is None
         assert len(full_ll) == 0
 
-    # def test_make_linked_list_iterable(self, full_ll):
-    #     for i, item in enumerate(full_ll):
-    #         assert item == Node(i)
+    def test_make_linked_list_iterable(self, full_ll):
+        for i, item in enumerate(full_ll):
+            assert item == Node(i)
 
-    # def test_contains(self, full_ll):
-    #     assert full_ll.contains(34)
-    #     assert not full_ll.contains(-2)
+    def test_iterator_can_be_reset(self, full_ll):
+        for i, item in enumerate(full_ll):
+            assert item == Node(i)
+
+        for i, item in enumerate(full_ll):
+            assert item == Node(i)
+
+    def test_item_index(self, full_ll):
+        for i, item in enumerate(full_ll):
+            assert full_ll.index_of(i) == i
+            assert full_ll.index_of(Node(i)) == i
+            assert full_ll.index_of(item) == i
+
+    def test_contains(self, full_ll):
+        for i, item in enumerate(full_ll):
+            assert full_ll.contains(i)
+            assert full_ll.contains(item)
+
+        assert not full_ll.contains(-1)
+        assert not full_ll.contains(-10)
+        assert not full_ll.contains(100)
+
+    # def test_remove_at_index(self, full_ll):
+    #     full_ll.remove_at(2)
+    #     assert len(full_ll) == 39
+    #     assert full_ll.first.next.next == Node(3)
+    #     assert full_ll.first.next.next.next == Node(4)
     #
-    #     assert full_ll.contains(Node(35))
-    #     assert not full_ll.contains(Node(-4))
+    #     full_ll.remove_at(3)
+    #     assert len(full_ll) == 38
+    #     assert full_ll.first.next.next == Node(3)
+    #     assert full_ll.first.next.next.next == Node(5)
+    #     assert full_ll.first.next.next.next.next == Node(6)
