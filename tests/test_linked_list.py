@@ -181,4 +181,13 @@ class TestLinkedList:
         assert full_ll.first is None and full_ll.last is None
         assert len(full_ll) == 0
 
-    # def test_remove
+    # def test_make_linked_list_iterable(self, full_ll):
+    #     for i, item in enumerate(full_ll):
+    #         assert item == Node(i)
+
+    # def test_contains(self, full_ll):
+    #     assert full_ll.contains(34)
+    #     assert not full_ll.contains(-2)
+    #
+    #     assert full_ll.contains(Node(35))
+    #     assert not full_ll.contains(Node(-4))
