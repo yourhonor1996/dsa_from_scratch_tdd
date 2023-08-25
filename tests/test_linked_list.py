@@ -49,7 +49,7 @@ class TestLinkedList:
 
     def test_is_empty(self, ll):
         assert not ll
-        assert ll._empty() is True
+        assert ll.is_empty() is True
 
     def test_null_linked_list_has_none_as_first_and_last_nodes(self, ll):
         assert ll.first is None
@@ -133,14 +133,52 @@ class TestLinkedList:
         assert len(full_ll) == 40
 
     def test_remove_last(self, full_ll):
-        full_ll.remove_last()
+        node = full_ll.remove_last()
+        assert node == Node(39)
         assert len(full_ll) == 39
         assert full_ll.last == Node(38)
         assert full_ll.last.next is None
         assert full_ll.first == Node(0)
 
-        full_ll.remove_last()
+        node = full_ll.remove_last()
+        assert node == Node(38)
+
         assert len(full_ll) == 38
         assert full_ll.last == Node(37)
         assert full_ll.last.next is None
         assert full_ll.first == Node(0)
+
+    def test_remove_first(self, full_ll):
+        node = full_ll.remove_first()
+
+        assert node == Node(0)
+        assert len(full_ll) == 39
+        assert full_ll.first == Node(1)
+        assert full_ll.first.next == Node(2)
+        assert full_ll.last == Node(39)
+
+        node = full_ll.remove_first()
+
+        assert node == Node(1)
+        assert len(full_ll) == 38
+        assert full_ll.first == Node(2)
+        assert full_ll.first.next == Node(3)
+        assert full_ll.last == Node(39)
+
+    def test_remove_all_from_first(self, full_ll):
+        for i in range(40):
+            assert full_ll.remove_first() == Node(i)
+            if len(full_ll) == 1:
+                assert full_ll.first == full_ll.last == Node(39)
+        assert full_ll.first is None and full_ll.last is None
+        assert len(full_ll) == 0
+
+    def test_remove_all_from_last(self, full_ll):
+        for i in reversed(range(40)):
+            assert full_ll.remove_last() == Node(i)
+            if len(full_ll) == 1:
+                assert full_ll.first == full_ll.last == Node(0)
+        assert full_ll.first is None and full_ll.last is None
+        assert len(full_ll) == 0
+
+    # def test_remove
