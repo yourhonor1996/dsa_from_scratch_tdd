@@ -57,6 +57,9 @@ class LinkedList:
         self._last = node
 
     def remove_first(self):
+        if self.is_empty():
+            return None
+
         temp_first = self._first
         if self._only_one_node_remains():
             self._make_empty()
@@ -67,6 +70,9 @@ class LinkedList:
         return temp_first
 
     def remove_last(self):
+        if self.is_empty():
+            return None
+
         temp_last = self._last
         if self._only_one_node_remains():
             self._make_empty()

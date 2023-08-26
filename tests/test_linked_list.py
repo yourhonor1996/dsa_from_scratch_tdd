@@ -171,6 +171,7 @@ class TestLinkedList:
             if len(full_ll) == 1:
                 assert full_ll.first == full_ll.last == Node(39)
         assert full_ll.first is None and full_ll.last is None
+        assert full_ll.is_empty()
         assert len(full_ll) == 0
 
     def test_remove_all_from_last(self, full_ll):
@@ -179,6 +180,7 @@ class TestLinkedList:
             if len(full_ll) == 1:
                 assert full_ll.first == full_ll.last == Node(0)
         assert full_ll.first is None and full_ll.last is None
+        assert full_ll.is_empty()
         assert len(full_ll) == 0
 
     def test_make_linked_list_iterable(self, full_ll):
@@ -207,14 +209,8 @@ class TestLinkedList:
         assert not full_ll.contains(-10)
         assert not full_ll.contains(100)
 
-    # def test_remove_at_index(self, full_ll):
-    #     full_ll.remove_at(2)
-    #     assert len(full_ll) == 39
-    #     assert full_ll.first.next.next == Node(3)
-    #     assert full_ll.first.next.next.next == Node(4)
-    #
-    #     full_ll.remove_at(3)
-    #     assert len(full_ll) == 38
-    #     assert full_ll.first.next.next == Node(3)
-    #     assert full_ll.first.next.next.next == Node(5)
-    #     assert full_ll.first.next.next.next.next == Node(6)
+    def test_do_things_if_the_list_is_empty(self, ll):
+        assert ll.remove_first() is None
+        assert ll.remove_first() is None
+        assert ll.remove_last() is None
+        assert ll.remove_last() is None
